@@ -1,0 +1,12 @@
+{{- with .Site.Params.Bunny.Fonts -}}
+	<link rel="preconnect" href="https://fonts.bunny.net" />
+
+	{{- $families := (slice) -}}
+	{{- range . -}}
+		{{- $sizes := delimit (.Sizes | default (slice 400 700)) "," -}}
+		{{- $families = $families | append (printf "%s:%s" .Name $sizes ) -}}
+	{{- end -}}
+
+	{{- $permalink := (printf "https://fonts.bunny.net/css?family=%s&display=swap" (delimit $families "|")) -}}
+	<link rel="stylesheet" href="{{- $permalink | safeHTMLAttr -}}" />
+{{- end -}}
